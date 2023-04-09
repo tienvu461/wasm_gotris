@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+
+      body {
+        background: black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      canvas {
+        border: 1px solid white;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+    <script src="wasm_exec.js"></script>
+    <script>
+      const go = new Go();
+      WebAssembly.instantiateStreaming(
+        fetch('main.wasm'),
+        go.importObject
+      ).then((result) => {
+        go.run(result.instance);
+      });
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h2>WASM GOTRIS</h2>
+    </div>
+    <canvas width="320" height="640" id="game"></canvas>
+    <script src="js/tetris.js"></script>
+    <script src="js/controllers.js"></script>
+    <button onClick="loop()" id="runButton">Run</button>
+    <button onClick="stop()">Stop</button>
+    <script>
+      document.addEventListener('keydown', keyEventHandler);
+      // start the game
+      <!-- rAF = requestAnimationFrame(loop); -->
+    </script>
+  </body>
+</html>
